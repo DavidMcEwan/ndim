@@ -1,17 +1,21 @@
 from distutils.core import setup
 
-long_desc = open('README.md').read()
+with open('README.md') as fd:
+    long_description = fd.read()
+
 
 setup(
     name                = 'ndim',
+    packages            = [],
     version             = '0.1',
-    py_modules          = ['ndim'],
-    description         = 'Utility functions for strings of binary digits',
+    py_modules          = ['ndim', 'ndim_base', 'ndim_bezier'],
+    description         = 'Utility functions for manipulating points N-dimensional geometry.',
     author              = 'David McEwan',
-    author_email        = '',
+    author_email        = 'cogitocumimpune@hotmail.com',
     license             = 'GLPv3',
     platforms           = 'Python >2.6 including 3.x (OS Independent)',
     url                 = 'https://github.com/DavidMcEwan/ndim',
+    package_data       = {'package': ['*.py', 'README.md']},
     
     classifiers         = [
         'Development Status :: 5 - Production/Stable',
@@ -30,5 +34,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
                           ],
     
-    long_description    = long_desc
+    long_description    = long_description
 )
