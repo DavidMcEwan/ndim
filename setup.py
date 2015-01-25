@@ -7,7 +7,7 @@ with open('README.md') as fd:
 setup(
     name                = 'ndim',
     packages            = [],
-    version             = '0.1',
+    version             = '0.3',
     py_modules          = ['ndim', 'ndim_base', 'ndim_bezier'],
     description         = 'Utility functions for manipulating points N-dimensional geometry.',
     author              = 'David McEwan',
