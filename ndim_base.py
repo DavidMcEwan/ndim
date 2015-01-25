@@ -110,7 +110,7 @@ For example, SVG Y-axis increases top to bottom but DXF is bottom to top.
     # Convert True/False to -1/1
     flip_mul = [-2 * int(f) + 1 for f in flip]
 
-    return [offset[i] + pt[i]*flip_mul[i] for i in range(l_pt)]
+    return tuple([offset[i] + pt[i]*flip_mul[i] for i in range(l_pt)])
 
 
 def pts_change_axis(pts=[], flip=[False, False], offset=[0.0, 0.0]):
