@@ -87,6 +87,61 @@ def distance_between_pts(a=(0.0, 0.0), b=(0.0, 0.0)):
     return sqrt(sum([(b[i] - a[i])**2 for i in range(l_pt)]))
 
 
+def pt_change_axis(pt=(0.0, 0.0), flip=[False, False], offset=[0.0, 0.0]):
+    '''Return given point with axes flipped and offset, converting points between cartesian axis layouts.
+For example, SVG Y-axis increases top to bottom but DXF is bottom to top.
+    '''
+    assert isinstance(pt, tuple)
+    l_pt = len(pt)
+    assert l_pt > 1
+    for i in pt:
+        assert isinstance(i, float)
+    assert isinstance(flip, list)
+    l_fl = len(flip)
+    assert l_fl == l_pt
+    for i in flip:
+        assert isinstance(i, bool)
+    assert isinstance(offset, list)
+    l_of = len(offset)
+    assert l_of == l_pt
+    for i in offset:
+        assert isinstance(i, float)
+
+    # Convert True/False to -1/1
+    flip_mul = [-2 * int(f) + 1 for f in flip]
+
+    return [offset[i] + pt[i]*flip_mul[i] for i in range(l_pt)]
+
+
+def pts_change_axis(pts=[], flip=[False, False], offset=[0.0, 0.0]):
+    '''Return given point with axes flipped and offset, converting points between cartesian axis layouts.
+For example, SVG Y-axis increases top to bottom but DXF is bottom to top.
+    '''
+    assert isinstance(pts, list) and len(pts) > 0
+    l_pt_prev = None
+    for pt in pts:
+        assert isinstance(pt, tuple)
+        l_pt = len(pt)
+        assert l_pt > 1
+        for i in pt:
+            assert isinstance(i, float)
+        if l_pt_prev is not None:
+            assert l_pt == l_pt_prev
+        l_pt_prev = l_pt
+    assert isinstance(flip, list)
+    l_fl = len(flip)
+    assert l_fl == l_pt
+    for i in flip:
+        assert isinstance(i, bool)
+    assert isinstance(offset, list)
+    l_of = len(offset)
+    assert l_of == l_pt
+    for i in offset:
+        assert isinstance(i, float)
+
+    return [pt_change_axis(pt, flip, offset) for pt in pts]
+
+
 def pt_rotate(pt=(0.0, 0.0), angle=[0.0], center=(0.0, 0.0)):
     '''Return given point rotated around a center point in N dimensions.
 Angle is list of rotation in radians for each pair of axis.
