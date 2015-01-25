@@ -259,6 +259,38 @@ There must be the same number of planes as dimensions, but the value of each
     return [pt_reflect(pt, plane) for pt in pts]
 
 
+def pt_scale(pt=(0.0, 0.0), f=1.0):
+    '''Return given point scaled by factor f from origin.
+    '''
+    assert isinstance(pt, tuple)
+    l_pt = len(pt)
+    assert l_pt > 1
+    for i in pt:
+        assert isinstance(i, float)
+    assert isinstance(f, float)
+
+    return tuple([pt[i]*f for i in range(l_pt)])
+
+
+def pts_scale(pts=[], f=1.0):
+    '''Return given points scaled by factor f from origin.
+    '''
+    assert isinstance(pts, list) and len(pts) > 0
+    l_pt_prev = None
+    for pt in pts:
+        assert isinstance(pt, tuple)
+        l_pt = len(pt)
+        assert l_pt > 1
+        for i in pt:
+            assert isinstance(i, float)
+        if l_pt_prev is not None:
+            assert l_pt == l_pt_prev
+        l_pt_prev = l_pt
+    assert isinstance(f, float)
+
+    return [pt_scale(pt, f) for pt in pts]
+
+
 def gen_polygon_pts(n_pts=3, radius=[1.0]):
     '''Generate points for a polygon with a number of radiuses.
 This makes it easy to generate shapes with an arbitrary number of sides,
