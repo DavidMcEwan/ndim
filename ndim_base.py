@@ -200,6 +200,7 @@ Angle is list of rotation in radians for each pair of axis.
     assert l_angle == l_pt-1
     for i in angle:
         assert isinstance(i, float)
+        assert abs(i) <= 2*pi
     assert isinstance(center, tuple)
     assert len(center) == l_pt
     for i in center:
@@ -266,6 +267,7 @@ def pt_relative(pt=(0.0, 0.0), shift=[0.0, 0.0], angle=[0.0]):
     assert l_angle == l_pt-1
     for i in angle:
         assert isinstance(i, float)
+        assert abs(i) <= 2*pi
     
     return pt_rotate(pt_shift(pt, shift), angle, pt)
 
