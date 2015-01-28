@@ -8,7 +8,7 @@ setup(
     name                = 'ndim',
     packages            = [],
     version             = '0.3',
-    py_modules          = ['ndim', 'ndim_base', 'ndim_bezier'],
+    py_modules          = ['ndim', 'ndim_base', 'ndim_arc', 'ndim_bezier'],
     description         = 'Utility functions for manipulating points N-dimensional geometry.',
     author              = 'David McEwan',
     author_email        = 'cogitocumimpune@hotmail.com',
