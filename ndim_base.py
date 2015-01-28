@@ -346,6 +346,30 @@ def pts_scale(pts=[], f=1.0):
     return [pt_scale(pt, f) for pt in pts]
 
 
+def angle_diff(start_a=[0.0], end_a=[0.0], direction=True):
+    '''Return difference in angle from start_a to end_a.
+Direction follows the right-hand-rule so positive is counter-clockwise.
+    '''
+    assert isinstance(start_a, list)
+    assert isinstance(end_a, list)
+    l_angle = len(start_a)
+    assert l_angle == len(end_a)
+    for i in start_a:
+        assert isinstance(i, float)
+        assert abs(i) <= 2*pi
+    for i in end_a:
+        assert isinstance(i, float)
+        assert abs(i) <= 2*pi
+    assert isinstance(direction, bool)
+
+    # Convert True/False to 1/-1
+    inv = 2 * int(direction) - 1
+
+    diff = [end_a[i] - start_a[i] for i in range(l_angle)]
+    diff = [(2*pi + d) if d < 0.0 else d for d in diff]
+    return [d*inv for d in diff]
+
+
 def gen_polygon_pts(n_pts=3, radius=[1.0]):
     '''Generate points for a polygon with a number of radiuses.
 This makes it easy to generate shapes with an arbitrary number of sides,
