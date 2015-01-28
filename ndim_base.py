@@ -353,6 +353,7 @@ Direction follows the right-hand-rule so positive is counter-clockwise.
     assert isinstance(start_a, list)
     assert isinstance(end_a, list)
     l_angle = len(start_a)
+    assert l_angle > 0
     assert l_angle == len(end_a)
     for i in start_a:
         assert isinstance(i, float)
