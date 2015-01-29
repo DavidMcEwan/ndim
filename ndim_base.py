@@ -272,6 +272,35 @@ def pt_relative(pt=(0.0, 0.0), shift=[0.0, 0.0], angle=[0.0]):
     return pt_rotate(pt_shift(pt, shift), angle, pt)
 
 
+def pts_relative(pts=[], shift=[0.0, 0.0], angle=[0.0]):
+    '''Convenience shift+rotate combination.
+    '''
+    assert isinstance(pts, list) and len(pts) > 0
+    l_pt_prev = None
+    for pt in pts:
+        assert isinstance(pt, tuple)
+        l_pt = len(pt)
+        assert l_pt > 1
+        for i in pt:
+            assert isinstance(i, float)
+        if l_pt_prev is not None:
+            assert l_pt == l_pt_prev
+        l_pt_prev = l_pt
+    assert isinstance(shift, list)
+    l_sh = len(shift)
+    assert l_sh == l_pt
+    for i in shift:
+        assert isinstance(i, float)
+    assert isinstance(angle, list)
+    l_angle = len(angle)
+    assert l_angle == l_pt-1
+    for i in angle:
+        assert isinstance(i, float)
+        assert abs(i) <= 2*pi
+
+    return [pt_relative(pt, shift, angle) for pt in pts]
+
+
 def pt_reflect(pt=(0.0, 0.0), plane=[None, None]):
     '''Return given point reflected around planes in N dimensions.
 There must be the same number of planes as dimensions, but the value of each
