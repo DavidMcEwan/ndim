@@ -21,7 +21,7 @@ Last vector is the path between the first and last point, creating a loop.
         if l_pt_prev is not None:
             assert l_pt == l_pt_prev
         l_pt_prev = l_pt
-    
+
     return [tuple([pts[(i+1) % l_pts][j] - pts[i][j] for j in range(l_pt)]) \
             for i in range(l_pts)]
 
@@ -42,14 +42,14 @@ E.g. Where X is "right", Y is "up", Z is "in" on a computer screen, and
         assert isinstance(i, float)
     for i in b:
         assert isinstance(i, float)
-    
+
     # Difference used for calculating gradient, giving 2 quadrants of direction.
     delta = [b[i] - a[i] for i in range(l_pt)]
-    
+
     # 180 degree offset to add, giving all 4 quadrants of this pair of
     #   dimensions.
     semiturn = [pi * int(b[p] < a[p]) for p in range(l_pt-1)]
-    
+
     return [atan(delta[p+1] / delta[p]) + semiturn[p] for p in range(l_pt-1)]
 
 
@@ -67,7 +67,7 @@ def pt_between_pts(a=(0.0, 0.0), b=(0.0, 0.0), t=0.5):
         assert isinstance(i, float)
     assert isinstance(t, float)
     assert 0 <= t <= 1
-    
+
     return tuple([ ((b[i] - a[i]) * t) + a[i] for i in range(l_pt) ])
 
 
@@ -83,7 +83,7 @@ def distance_between_pts(a=(0.0, 0.0), b=(0.0, 0.0)):
         assert isinstance(i, float)
     for i in b:
         assert isinstance(i, float)
-    
+
     return sqrt(sum([(b[i] - a[i])**2 for i in range(l_pt)]))
 
 
@@ -161,20 +161,20 @@ Angle is list of rotation in radians for each pair of axis.
     assert len(center) == l_pt
     for i in center:
         assert isinstance(i, float)
-    
+
     # Get vector from center to point and use to get relative polar coordinate.
     v_cart = [pt[i] - center[i] for i in range(l_pt)]
-    
+
     # Length of vector needs to stay constant for new point.
     v_pol_l = [sqrt(v_cart[i]**2 + v_cart[i+1]**2) for i in range(l_angle)]
     v_pol_a = [(atan(v_cart[i+1] / v_cart[i]) if v_cart[i] != 0.0 else pi/2) + pi*int(pt[i] < center[i]) \
                for i in range(l_angle)]
-    
+
     # Add rotation angle then convert back to cartesian vector.
     n_pol_a = [v_pol_a[i] + angle[i] for i in range(l_angle)]
     n_cart = [v_pol_l[0] * cos(n_pol_a[0])] + [v_pol_l[i] * sin(n_pol_a[i])\
                                                for i in range(l_angle)]
-    
+
     # Add in the centre offset to get original offset from c.
     r = [n_cart[i] + center[i] for i in range(l_pt)]
     return tuple(r)
@@ -205,7 +205,7 @@ Angle is list of rotation in radians for each pair of axis.
     assert len(center) == l_pt
     for i in center:
         assert isinstance(i, float)
-    
+
     return [pt_rotate(pt, angle, center) for pt in pts]
 
 
@@ -245,7 +245,7 @@ def pts_shift(pts=[], shift=[0.0, 0.0]):
     assert l_sh == l_pt
     for i in shift:
         assert isinstance(i, float)
-    
+
     return [pt_shift(pt, shift) for pt in pts]
 
 
@@ -268,7 +268,7 @@ def pt_relative(pt=(0.0, 0.0), shift=[0.0, 0.0], angle=[0.0]):
     for i in angle:
         assert isinstance(i, float)
         assert abs(i) <= 2*pi
-    
+
     return pt_rotate(pt_shift(pt, shift), angle, pt)
 
 
@@ -287,7 +287,7 @@ There must be the same number of planes as dimensions, but the value of each
     assert l_pl == l_pt
     for i in plane:
         assert isinstance(i, float) or i is None
-    
+
     return tuple([pt[i] if plane[i] is None else (2*plane[i] - pt[i]) for i in range(l_pt)])
 
 
@@ -312,7 +312,7 @@ There must be the same number of planes as dimensions, but the value of each
     assert l_pl == l_pt
     for i in plane:
         assert isinstance(i, float) or i is None
-    
+
     return [pt_reflect(pt, plane) for pt in pts]
 
 
